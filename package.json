@@ -1,5 +1,5 @@
 {
-  "name": "react-form-builder2",
+  "name": "@spoton-inc/react-form-builder",
   "version": "0.10.5",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kiho/react-form-builder.git"
+    "url": "git+https://github.com/SpotOnInc/react-form-builder.git"
   },
   "files": [
     "lib",
