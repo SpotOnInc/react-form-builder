@@ -251,7 +251,6 @@ export default class Preview extends React.Component {
       return null;
     }
     return <>
-
       <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />
       {
         this.props.editElement !== null && this.props.editElement.id === item.id && <div className="edit-form" ref={this.editForm}>
@@ -278,18 +277,12 @@ export default class Preview extends React.Component {
   }
 
   render() {
-
-    console.log(this.props, 'props>>>');
-    console.log(this.state, 'state>>>');
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
     const data = this.state.data.filter(x => !!x && !x.parentId);
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
-        {/*<div className="edit-form" ref={this.editForm}>*/}
-        {/*  {this.props.editElement !== null && this.showEditForm()}*/}
-        {/*</div>*/}
         <div className="Sortable">{items}</div>
         <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
         <CustomDragLayer/>
