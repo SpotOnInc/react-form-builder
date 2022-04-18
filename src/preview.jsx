@@ -250,10 +250,30 @@ export default class Preview extends React.Component {
     if (SortableFormElement === null) {
       return null;
     }
+
+    const showFormElement = this.props.editElement === null || (this.props.editElement.id !== item.id);
+    const showFormElementEditor = this.props.editElement !== null && this.props.editElement.id === item.id;
+
     return <>
-      <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />
-      {
-        this.props.editElement !== null && this.props.editElement.id === item.id && <div className="edit-form" ref={this.editForm}>
+      {showFormElement && (<SortableFormElement
+        id={item.id}
+        seq={this.seq}
+        index={index}
+        moveCard={this.moveCard}
+        insertCard={this.insertCard}
+        mutable={false}
+        parent={this.props.parent}
+        editModeOn={this.props.editModeOn}
+        isDraggable={true}
+        key={item.id}
+        sortData={item.id}
+        data={item}
+        getDataById={this.getDataById}
+        setAsChild={this.setAsChild}
+        removeChild={this.removeChild}
+        _onDestroy={this._onDestroy}
+      />)}
+      {showFormElementEditor && <div className="edit-form" ref={this.editForm}>
           {this.showEditForm()}
         </div>
       }
