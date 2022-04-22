@@ -126,6 +126,8 @@ export interface FormBuilderProps {
   onLoad?: () => Promise<FormBuilderPostData>;
   onPost?: (data: FormBuilderPostData) => void;
   saveUrl?: string;
+  showInlineEditForm?: boolean;
+  renderEditForm?: (data: FormBuilderPostData) => void;
 }
 
 export class ReactFormBuilder extends React.Component<FormBuilderProps> {}

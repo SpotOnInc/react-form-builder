@@ -251,8 +251,8 @@ export default class Preview extends React.Component {
       return null;
     }
 
-    const showFormElement = this.props.editElement === null || (this.props.editElement.id !== item.id);
-    const showFormElementEditor = this.props.editElement !== null && this.props.editElement.id === item.id;
+    const showFormElement = this.props.showInlineEditForm && (this.props.editElement === null || (this.props.editElement.id !== item.id));
+    const showFormElementEditor = this.props.showInlineEditForm && (this.props.editElement !== null && this.props.editElement.id === item.id);
 
     return <>
       {showFormElement && (<SortableFormElement
@@ -303,6 +303,9 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
+        {!this.props.showInlineEditForm && <div className="edit-form" ref={this.editForm}>
+          {this.props.editElement !== null && this.showEditForm()}
+        </div>}
         <div className="Sortable">{items}</div>
         <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
         <CustomDragLayer/>
