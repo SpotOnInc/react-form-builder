@@ -251,7 +251,7 @@ export default class Preview extends React.Component {
       return null;
     }
 
-    const showFormElement = !this.props.showInlineEditForm && (this.props.editElement === null || (this.props.editElement.id !== item.id));
+    const showFormElement = this.props.editElement === null || (this.props.editElement.id !== item.id);
     const showFormElementEditor = this.props.showInlineEditForm && (this.props.editElement !== null && this.props.editElement.id === item.id);
 
     return <>
