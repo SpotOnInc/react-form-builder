@@ -250,7 +250,34 @@ export default class Preview extends React.Component {
     if (SortableFormElement === null) {
       return null;
     }
-    return <SortableFormElement id={item.id} seq={this.seq} index={index} moveCard={this.moveCard} insertCard={this.insertCard} mutable={false} parent={this.props.parent} editModeOn={this.props.editModeOn} isDraggable={true} key={item.id} sortData={item.id} data={item} getDataById={this.getDataById} setAsChild={this.setAsChild} removeChild={this.removeChild} _onDestroy={this._onDestroy} />;
+
+    const showFormElement = this.props.showInlineEditForm && (this.props.editElement === null || (this.props.editElement.id !== item.id));
+    const showFormElementEditor = this.props.showInlineEditForm && (this.props.editElement !== null && this.props.editElement.id === item.id);
+
+    return <>
+      {showFormElement && (<SortableFormElement
+        id={item.id}
+        seq={this.seq}
+        index={index}
+        moveCard={this.moveCard}
+        insertCard={this.insertCard}
+        mutable={false}
+        parent={this.props.parent}
+        editModeOn={this.props.editModeOn}
+        isDraggable={true}
+        key={item.id}
+        sortData={item.id}
+        data={item}
+        getDataById={this.getDataById}
+        setAsChild={this.setAsChild}
+        removeChild={this.removeChild}
+        _onDestroy={this._onDestroy}
+      />)}
+      {showFormElementEditor && <div className="edit-form" ref={this.editForm}>
+          {this.showEditForm()}
+        </div>
+      }
+    </>;
   }
 
   showEditForm() {
@@ -276,9 +303,9 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
-        <div className="edit-form" ref={this.editForm}>
+        {!this.props.showInlineEditForm && <div className="edit-form" ref={this.editForm}>
           {this.props.editElement !== null && this.showEditForm()}
-        </div>
+        </div>}
         <div className="Sortable">{items}</div>
         <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
         <CustomDragLayer/>
