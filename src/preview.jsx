@@ -272,6 +272,7 @@ export default class Preview extends React.Component {
         setAsChild={this.setAsChild}
         removeChild={this.removeChild}
         _onDestroy={this._onDestroy}
+        showInlineEditForm={this.props.showInlineEditForm}
       />)}
       {showFormElementEditor && <div className="edit-form" ref={this.editForm}>
           {this.showEditForm()}

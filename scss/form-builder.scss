@@ -178,7 +178,6 @@
           border: 2px #ccc dashed;
         }
         .toolbar-header {
-          opacity: 0; // visible
           z-index: 100;
           position: relative;
           .label {
@@ -189,6 +188,23 @@
             position: absolute;
             right: 20px;
             margin-top:-20px;
+
+            .toolbar-header-submenu {
+              position: absolute;
+              right: 0;
+              display: flex;
+              flex-direction: column;
+              padding: 10px;
+              background-color: white;
+              border-radius: 10px;
+              box-shadow: 0 0 10px 1px rgba(0,0,0,0.2);
+
+              .btn {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
+              }
+            }
           }
         }
         &:hover {
@@ -197,9 +213,6 @@
           select, input {
             cursor: move;
             pointer-events: none;
-          }
-          .toolbar-header {
-            opacity: 1;
           }
         }
       }
