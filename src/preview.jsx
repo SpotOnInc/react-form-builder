@@ -297,6 +297,15 @@ export default class Preview extends React.Component {
     return this.props.renderEditForm(formElementEditProps);
   }
 
+  showFormTitleInput() {
+    return (
+      <label htmlFor='title' className='react-form-builder-title'>
+        <span>Waiver title</span>
+        <input name='title'/>
+      </label>
+    );
+  }
+
   render() {
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
@@ -304,6 +313,7 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
+        {this.showFormTitleInput()}
         {!this.props.showInlineEditForm && <div className="edit-form" ref={this.editForm}>
           {this.props.editElement !== null && this.showEditForm()}
         </div>}
