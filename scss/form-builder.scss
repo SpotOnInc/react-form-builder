@@ -192,6 +192,7 @@
             .toolbar-header-submenu {
               position: absolute;
               right: 0;
+              top: 100%;
               display: flex;
               flex-direction: column;
               padding: 10px;
@@ -230,6 +231,15 @@
         left: 0;
         transition: .5s;
         height: auto;
+      }
+    }
+
+    &.inline-edit-form-is-on {
+      .Sortable .rfb-item .toolbar-header .toolbar-header-buttons {
+        position: static;
+        margin-top: 0;
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }
