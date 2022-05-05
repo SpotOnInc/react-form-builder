@@ -36,8 +36,6 @@ const cardTarget = {
     const hoverIndex = props.index;
     const dragIndex = item.index;
 
-    console.log(props,'props>>>');
-
     if ((props.data && props.data.isContainer) || item.itemType === ItemTypes.CARD) {
       // console.log('cardTarget -  Drop', item.itemType);
       return;
@@ -141,9 +139,10 @@ export default function (ComposedComponent) {
         connectDropTarget,
       } = this.props;
       const opacity = isDragging ? 0 : 1;
+      const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
 
       return connectDragPreview(
-        connectDropTarget(<div><ComposedComponent {...this.props} style={{ ...style, opacity }}></ComposedComponent></div>),
+        connectDropTarget(<div onClick={wrapperAction}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
       );
     }
   }
