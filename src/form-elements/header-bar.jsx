@@ -6,7 +6,7 @@ import React from 'react';
 import DragHandle from './component-drag-handle';
 import useToggle from '../utils/hooks/useToggle';
 
-const HeaderMenu = () => {
+const HeaderMenu = ({ onDestroy }) => {
   const { isOpen, toggle } = useToggle();
 
   const buttonList = [
@@ -17,6 +17,7 @@ const HeaderMenu = () => {
     {
       icon: 'far fa-trash-alt',
       text: 'Delete',
+      action: onDestroy,
     },
   ];
 
@@ -44,7 +45,7 @@ export default class HeaderBar extends React.Component {
     return (
       <div className="toolbar-header">
         <span className="badge badge-secondary">{this.props.data.text}</span>
-        {this.props.showInlineEditForm && <HeaderMenu />}
+        {this.props.showInlineEditForm && <HeaderMenu onDestroy={this.props.onDestroy.bind(this, this.props.data)}/>}
         {!this.props.showInlineEditForm && <div className="toolbar-header-buttons">
           {this.props.data.element !== 'LineBreak' &&
             <div className="btn is-isolated" onClick={this.props.editModeOn.bind(this.props.parent, this.props.data)}><i className="is-isolated fas fa-edit"></i></div>
