@@ -271,6 +271,46 @@
       }
     }
   }
+
+  .react-form-builder-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+
+    &__inner {
+      display: flex;
+      justify-content: space-between;
+      column-gap: 16px;
+    }
+  }
+}
+
+.button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  width: auto;
+  padding: 10px 24px;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  inline-size: fit-content;
+
+  &--primary {
+    color: #fff;
+    background-color: #1769ff;
+    border: 1px solid #1769ff;
+
+    &:hover {
+      background-color: #1254cc;
+      border: 1px solid #1254cc;
+    }
+  }
 }
 
 .image-upload-container {

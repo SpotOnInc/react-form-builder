@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
 type BaseElement = {
   id: string;
@@ -128,6 +129,8 @@ export interface FormBuilderProps {
   saveUrl?: string;
   showInlineEditForm?: boolean;
   renderEditForm?: (data: FormBuilderPostData) => void;
+  onPreviewButton?: () => void;
+  onPublishButton?: () => void;
 }
 
 export class ReactFormBuilder extends React.Component<FormBuilderProps> {}
