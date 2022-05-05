@@ -139,9 +139,10 @@ export default function (ComposedComponent) {
         connectDropTarget,
       } = this.props;
       const opacity = isDragging ? 0 : 1;
+      const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
 
       return connectDragPreview(
-        connectDropTarget(<div><ComposedComponent {...this.props} style={{ ...style, opacity }}></ComposedComponent></div>),
+        connectDropTarget(<div onClick={wrapperAction}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
       );
     }
   }

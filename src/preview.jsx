@@ -309,6 +309,7 @@ export default class Preview extends React.Component {
   render() {
     let classes = this.props.className;
     if (this.props.editMode) { classes += ' is-editing'; }
+    if (this.props.showInlineEditForm) { classes += ' inline-edit-form-is-on'; }
     const data = this.state.data.filter(x => !!x && !x.parentId);
     const items = data.map((item, index) => this.getElement(item, index));
     return (
