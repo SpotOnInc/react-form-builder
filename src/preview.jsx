@@ -332,7 +332,14 @@ export default class Preview extends React.Component {
           {this.props.editElement !== null && this.showEditForm()}
         </div>}
         <div className="Sortable">{items}</div>
-        <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
+        <PlaceHolder
+          id="form-place-holder"
+          show={items.length === 0}
+          index={items.length}
+          moveCard={this.cardPlaceHolder}
+          insertCard={this.insertCard}
+          text="Drag and drop a feature"
+        />
         <CustomDragLayer/>
       </div>
     );

@@ -46,6 +46,7 @@ class ReactFormBuilder extends React.Component {
   render() {
     const toolbarProps = {
       showDescription: this.props.show_description,
+      backButton: this.props.backButton,
     };
 
     const language = this.props.locale ? this.props.locale : 'en';
