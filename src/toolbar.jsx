@@ -367,6 +367,13 @@ class Toolbar extends React.Component {
   render() {
     return (
       <div className="col-md-3 react-form-builder-toolbar float-right">
+        {this.props.backButton && <button
+          className="button button--with-icon"
+          onClick={this.props.backButton.onBackButton}
+        >
+          <i className="fas fa-arrow-left" />
+          <span>{this.props.backButton.text}</span>
+        </button>}
         <h4>{this.props.intl.formatMessage({ id: 'toolbox' })}</h4>
         <ul>
           {

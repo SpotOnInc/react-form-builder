@@ -46,6 +46,7 @@ class ReactFormBuilder extends React.Component {
   render() {
     const toolbarProps = {
       showDescription: this.props.show_description,
+      backButton: this.props.backButton,
     };
 
     const language = this.props.locale ? this.props.locale : 'en';
@@ -83,7 +84,9 @@ class ReactFormBuilder extends React.Component {
                   registry={Registry}
                   editElement={this.state.editElement}
                   renderEditForm={this.props.renderEditForm}
-                  showInlineEditForm
+                  showInlineEditForm={this.props.showInlineEditForm}
+                  onPreviewButton={this.props.onPreviewButton}
+                  onPublishButton={this.props.onPublishButton}
                 />
                 <Toolbar {...toolbarProps} customItems={this.props.customToolbarItems} />
               </div>

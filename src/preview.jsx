@@ -2,6 +2,7 @@
   * <Preview />
   */
 
+import PropTypes from 'prop-types';
 import React from 'react';
 import update from 'immutability-helper';
 import store from './stores/store';
@@ -297,6 +298,17 @@ export default class Preview extends React.Component {
     return this.props.renderEditForm(formElementEditProps);
   }
 
+  showHeaderButtons() {
+    return (
+      <div className='react-form-builder-header'>
+        <div className='react-form-builder-header__inner'>
+          {this.props.onPreviewButton && <button className='button button--primary' onClick={this.props.onPreviewButton}>Preview</button>}
+          {this.props.onPublishButton && <button className='button button--primary' onClick={this.props.onPublishButton}>Publish</button>}
+        </div>
+      </div>
+    );
+  }
+
   showFormTitleInput() {
     return (
       <label htmlFor='title' className='react-form-builder-title'>
@@ -314,12 +326,20 @@ export default class Preview extends React.Component {
     const items = data.map((item, index) => this.getElement(item, index));
     return (
       <div className={classes}>
+        {this.showHeaderButtons()}
         {this.showFormTitleInput()}
         {!this.props.showInlineEditForm && <div className="edit-form" ref={this.editForm}>
           {this.props.editElement !== null && this.showEditForm()}
         </div>}
         <div className="Sortable">{items}</div>
-        <PlaceHolder id="form-place-holder" show={items.length === 0} index={items.length} moveCard={this.cardPlaceHolder} insertCard={this.insertCard} />
+        <PlaceHolder
+          id="form-place-holder"
+          show={items.length === 0}
+          index={items.length}
+          moveCard={this.cardPlaceHolder}
+          insertCard={this.insertCard}
+          text="Drag and drop a feature"
+        />
         <CustomDragLayer/>
       </div>
     );

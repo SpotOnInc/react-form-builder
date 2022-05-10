@@ -128,6 +128,12 @@ export interface FormBuilderProps {
   saveUrl?: string;
   showInlineEditForm?: boolean;
   renderEditForm?: (data: FormBuilderPostData) => void;
+  onPreviewButton?: () => void;
+  onPublishButton?: () => void;
+  backButton?: {
+    text: string,
+    onBackButton: () => void;
+  }
 }
 
 export class ReactFormBuilder extends React.Component<FormBuilderProps> {}
