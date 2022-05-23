@@ -31,7 +31,7 @@ class CustomElement extends Component {
 
     return (
       <div className={baseClasses}>
-        <ComponentHeader {...this.props} />
+        {!this.props.showInlineEditForm && <ComponentHeader {...this.props} />}
         { bare ?
           <Element data={this.props.data} {...this.props.data.props} {...props} /> :
           <div className="form-group">
