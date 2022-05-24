@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import update from 'immutability-helper';
 import store from './stores/store';
-import FormElementsEdit from './form-elements-edit';
+import FormElementsEdit from './form-dynamic-edit';
 import SortableFormElements from './sortable-form-elements';
 import CustomDragLayer from './form-elements/component-drag-layer';
 
@@ -31,9 +31,7 @@ export default class Preview extends React.Component {
     };
     this.seq = 0;
 
-    const onUpdate = this._onChange.bind(this);
-    store.subscribe(state => onUpdate(state.data));
-
+    this._onUpdate = this._onChange.bind(this);
     this.getDataById = this.getDataById.bind(this);
     this.moveCard = this.moveCard.bind(this);
     this.insertCard = this.insertCard.bind(this);
@@ -44,6 +42,7 @@ export default class Preview extends React.Component {
 
   componentDidMount() {
     const { data, url, saveUrl } = this.props;
+    store.subscribe(state => this._onUpdate(state.data));
     store.dispatch('load', { loadUrl: url, saveUrl, data: data || [] });
     document.addEventListener('mousedown', this.editModeOff);
   }
