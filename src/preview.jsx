@@ -254,8 +254,9 @@ export default class Preview extends React.Component {
     const showFormElement = this.props.editElement === null || (this.props.editElement.id !== item.id);
     const showFormElementEditor = this.props.showInlineEditForm && (this.props.editElement !== null && this.props.editElement.id === item.id);
 
-    return <>
-      {showFormElement && (<SortableFormElement
+
+    if (showFormElement) {
+      return (<SortableFormElement
         id={item.id}
         seq={this.seq}
         index={index}
@@ -273,12 +274,18 @@ export default class Preview extends React.Component {
         removeChild={this.removeChild}
         _onDestroy={this._onDestroy}
         showInlineEditForm={this.props.showInlineEditForm}
-      />)}
-      {showFormElementEditor && <div className="edit-form" ref={this.editForm}>
+      />);
+    }
+
+    if (showFormElementEditor) {
+      return (
+        <div className="edit-form" ref={this.editForm}>
           {this.showEditForm()}
         </div>
-      }
-    </>;
+      );
+    }
+
+    return null;
   }
 
   showEditForm() {
