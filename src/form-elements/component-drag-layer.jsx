@@ -20,7 +20,7 @@ function getItemStyles(props) {
         };
     }
     let { x, y } = currentOffset;
-    
+
     const transform = `translate(${x}px, ${y}px)`;
     return {
         transform,
@@ -40,9 +40,10 @@ const CustomDragLayer = (props) => {
     if (!isDragging) {
         return null;
     }
-    return (<div style={layerStyles}>
-			<div style={getItemStyles(props)}>{renderItem()}</div>
-		</div>);
+    return (
+      <div style={layerStyles}>
+        <div style={getItemStyles(props)}>{renderItem()}</div>
+      </div>);
 };
 export default DragLayer((monitor) => ({
     item: monitor.getItem(),
