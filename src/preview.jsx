@@ -346,7 +346,7 @@ export default class Preview extends React.Component {
           insertCard={this.insertCard}
           text="Drag and drop a feature"
         />
-        {!this.props.showInlineEditForm && <CustomDragLayer/> }
+        <CustomDragLayer showInlineEditForm={this.props.showInlineEditForm}/>
       </div>
     );
   }

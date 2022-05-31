@@ -152,8 +152,6 @@ export default function (ComposedComponent) {
   }))(Card);
 
   return DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => {
-    console.log(monitor,'monitor>>>');
-    console.log(connect,'connect>>>');
     return {
       connectDragSource: connect.dragSource(),
       connectDragPreview: connect.dragPreview(),

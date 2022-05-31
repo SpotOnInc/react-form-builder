@@ -2,6 +2,7 @@ import React from 'react';
 import { DragLayer } from 'react-dnd';
 import ItemTypes from '../ItemTypes';
 import { BoxDragPreview } from './component-drag-preview';
+import SortableFormElements from '../sortable-form-elements';
 
 const layerStyles = {
     position: 'fixed',
@@ -13,7 +14,7 @@ const layerStyles = {
     height: '100%',
 };
 function getItemStyles(props) {
-    const { initialOffset, currentOffset } = props;
+    const { initialOffset, currentOffset, itemType } = props;
     if (!initialOffset || !currentOffset) {
         return {
             display: 'none',
@@ -22,17 +23,38 @@ function getItemStyles(props) {
     let { x, y } = currentOffset;
 
     const transform = `translate(${x}px, ${y}px)`;
+
+    if (itemType === ItemTypes.CARD) {
+      return {
+        transform,
+        WebkitTransform: transform,
+      };
+    }
+
     return {
         transform,
         WebkitTransform: transform,
+        backgroundColor: '#E8F0FF',
+        borderRadius: 8,
+        border: '2px solid #1769FF',
     };
 }
 const CustomDragLayer = (props) => {
     const { item, itemType, isDragging } = props;
+    const SortableFormElement = item && SortableFormElements[item.data.element];
+    const sortableFormElementProps = {
+      ...item,
+      editModeOn: () => ({}),
+      _onDestroy: () => ({}),
+      showInlineEditForm: props.showInlineEditForm,
+      isCustomDragLayer: true,
+    };
     function renderItem() {
         switch (itemType) {
             case ItemTypes.BOX:
-                return <BoxDragPreview item={item}/>;
+                return props.showInlineEditForm
+                  ? <SortableFormElement {...sortableFormElementProps} />
+                  : <BoxDragPreview item={item}/>;
             default:
                 return null;
         }
