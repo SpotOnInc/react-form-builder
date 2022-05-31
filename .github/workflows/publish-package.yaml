@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npx run build:dist
+      - run: yarn install --frozen-lockfile
+      - run: yarn run build:dist
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
