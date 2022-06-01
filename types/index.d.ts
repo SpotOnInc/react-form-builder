@@ -132,7 +132,7 @@ export interface FormBuilderProps {
   onPublishButton?: () => void;
   backButton?: {
     text: string,
-    onBackButton: () => void;
+    onBackButton: (event: React.SyntheticEvent) => void;
   }
 }
 
