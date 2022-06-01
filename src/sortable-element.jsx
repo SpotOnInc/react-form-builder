@@ -142,7 +142,7 @@ export default function (ComposedComponent) {
       const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
 
       return connectDragPreview(
-        connectDropTarget(<div onClick={wrapperAction}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
+        connectDropTarget(<div onClick={wrapperAction} className='wrapper'><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
       );
     }
   }
@@ -150,9 +150,12 @@ export default function (ComposedComponent) {
   const x = DropTarget([ItemTypes.CARD, ItemTypes.BOX], cardTarget, connect => ({
     connectDropTarget: connect.dropTarget(),
   }))(Card);
-  return DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => ({
-    connectDragSource: connect.dragSource(),
-    connectDragPreview: connect.dragPreview(),
-    isDragging: monitor.isDragging(),
-  }))(x);
+
+  return DragSource(ItemTypes.CARD, cardSource, (connect, monitor) => {
+    return {
+      connectDragSource: connect.dragSource(),
+      connectDragPreview: connect.dragPreview(),
+      isDragging: monitor.isDragging(),
+    };
+  })(x);
 }

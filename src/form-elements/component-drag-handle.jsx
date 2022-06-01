@@ -45,7 +45,18 @@ class DragHandle extends PureComponent {
   }
 
   render() {
-    const { connectDragSource } = this.props;
+    const {
+      connectDragSource, children, showInlineEditForm, isDragging
+    } = this.props;
+
+    if (showInlineEditForm) {
+      let classNames = "draggable-wrapper";
+      if (isDragging) {
+        classNames += ' is-dragging';
+      }
+      return connectDragSource(<div className={classNames}>{children}</div>);
+    }
+
     return connectDragSource(<div className="btn is-isolated" style={style} ><i className="is-isolated fas fa-grip-vertical"></i></div>);
   }
 }
