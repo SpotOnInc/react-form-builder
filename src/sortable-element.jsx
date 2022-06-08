@@ -63,7 +63,7 @@ const cardTarget = {
       return;
     }
 
-    if (dragIndex === -1) {
+    if (dragIndex === -1 && !props.showInlineEditForm) {
       if (props.data && props.data.isContainer) {
         return;
       }
