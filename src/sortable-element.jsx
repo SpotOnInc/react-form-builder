@@ -98,8 +98,10 @@ const cardTarget = {
       return;
     }
 
-    // Time to actually perform the action
-    props.moveCard(dragIndex, hoverIndex);
+    if (item.itemType === ItemTypes.BOX) {
+      // Time to actually perform the action
+      props.moveCard(dragIndex, hoverIndex);
+    }
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
@@ -138,6 +140,7 @@ export default function (ComposedComponent) {
         connectDragPreview,
         connectDropTarget,
       } = this.props;
+
       const opacity = isDragging ? 0 : 1;
       const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
 

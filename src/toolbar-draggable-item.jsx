@@ -14,6 +14,7 @@ const cardSource = {
       index: -1,
       data: props.data,
       onCreate: props.onCreate,
+      itemType: ItemTypes.CARD,
     };
   },
 };
