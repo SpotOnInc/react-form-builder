@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { findDOMNode } from 'react-dom';
 import { DragSource, DropTarget } from 'react-dnd';
+import classNames from 'classnames';
 import ItemTypes from './ItemTypes';
 
 const style = {
@@ -63,7 +64,7 @@ const cardTarget = {
       return;
     }
 
-    if (dragIndex === -1) {
+    if (dragIndex === -1 && !props.showInlineEditForm) {
       if (props.data && props.data.isContainer) {
         return;
       }
@@ -84,6 +85,14 @@ const cardTarget = {
     // Get pixels to the top
     const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
+    if (hoverClientY < hoverMiddleY) {
+      props.setCurrentHoveredCard({ id: props.id, isTop: true });
+    }
+
+    if (hoverClientY > hoverMiddleY) {
+      props.setCurrentHoveredCard({ id: props.id, isTop: false });
+    }
+
     // Only perform the move when the mouse has crossed half of the items height
     // When dragging downwards, only move when the cursor is below 50%
     // When dragging upwards, only move when the cursor is above 50%
@@ -98,8 +107,10 @@ const cardTarget = {
       return;
     }
 
-    // Time to actually perform the action
-    props.moveCard(dragIndex, hoverIndex);
+    if (item.itemType === ItemTypes.BOX) {
+      // Time to actually perform the action
+      props.moveCard(dragIndex, hoverIndex);
+    }
 
     // Note: we're mutating the monitor item here!
     // Generally it's better to avoid mutations,
@@ -137,12 +148,22 @@ export default function (ComposedComponent) {
         // connectDragSource,
         connectDragPreview,
         connectDropTarget,
+        currentHoveredCard,
       } = this.props;
+
+      let customClassName = '';
+
+      if (currentHoveredCard && currentHoveredCard.id === this.props.id) {
+        currentHoveredCard.isTop
+          ? customClassName = 'element-is-above'
+          : customClassName = 'element-is-below';
+      }
+
       const opacity = isDragging ? 0 : 1;
       const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
 
       return connectDragPreview(
-        connectDropTarget(<div onClick={wrapperAction} className='wrapper'><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
+        connectDropTarget(<div onClick={wrapperAction} className={classNames('wrapper', customClassName)}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
       );
     }
   }

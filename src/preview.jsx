@@ -9,6 +9,7 @@ import store from './stores/store';
 import FormElementsEdit from './form-dynamic-edit';
 import SortableFormElements from './sortable-form-elements';
 import CustomDragLayer from './form-elements/component-drag-layer';
+import SortableDropTarget from './sortable-drop-target';
 
 const { PlaceHolder } = SortableFormElements;
 
@@ -16,6 +17,10 @@ export default class Preview extends React.Component {
   state = {
     data: [],
     answer_data: {},
+    currentHoveredCard: {
+      id: '',
+      isTop: true,
+    },
   };
 
   constructor(props) {
@@ -38,6 +43,7 @@ export default class Preview extends React.Component {
     this.setAsChild = this.setAsChild.bind(this);
     this.removeChild = this.removeChild.bind(this);
     this._onDestroy = this._onDestroy.bind(this);
+    this.setCurrentHoveredCard = this.setCurrentHoveredCard.bind(this);
   }
 
   componentDidMount() {
@@ -212,14 +218,16 @@ export default class Preview extends React.Component {
     if (id) {
       this.restoreCard(item, id);
     } else {
-      data.splice(hoverIndex, 0, item);
-      this.saveData(item, hoverIndex, hoverIndex);
+      const targetIndex = hoverIndex === -1 ? data.length : hoverIndex;
+      data.splice(targetIndex, 0, item);
+      this.saveData(item, targetIndex, targetIndex);
     }
   }
 
   moveCard(dragIndex, hoverIndex) {
     const { data } = this.state;
     const dragCard = data[dragIndex];
+    if (!dragCard) return;
     this.saveData(dragCard, dragIndex, hoverIndex);
   }
 
@@ -236,6 +244,10 @@ export default class Preview extends React.Component {
     });
     this.setState(newData);
     store.dispatch('updateOrder', newData.data);
+  }
+
+  setCurrentHoveredCard({ id, isTop }) {
+    this.setState({ currentHoveredCard: { id, isTop } });
   }
 
   getElement(item, index) {
@@ -274,6 +286,8 @@ export default class Preview extends React.Component {
         removeChild={this.removeChild}
         _onDestroy={this._onDestroy}
         showInlineEditForm={this.props.showInlineEditForm}
+        setCurrentHoveredCard={this.setCurrentHoveredCard}
+        currentHoveredCard={this.state.currentHoveredCard}
       />);
     }
 
@@ -334,18 +348,23 @@ export default class Preview extends React.Component {
       <div className={classes}>
         {this.showHeaderButtons()}
         {this.showFormTitleInput()}
-        {!this.props.showInlineEditForm && <div className="edit-form" ref={this.editForm}>
-          {this.props.editElement !== null && this.showEditForm()}
-        </div>}
-        <div className="Sortable">{items}</div>
-        <PlaceHolder
-          id="form-place-holder"
-          show={items.length === 0}
-          index={items.length}
-          moveCard={this.cardPlaceHolder}
-          insertCard={this.insertCard}
-          text="Drag and drop a feature"
-        />
+        {!this.props.showInlineEditForm &&
+          <>
+            <div className="edit-form" ref={this.editForm}>
+              {this.props.editElement !== null && this.showEditForm()}
+            </div>
+            <div className="Sortable">{items}</div>
+            <PlaceHolder
+              id="form-place-holder"
+              show={items.length === 0}
+              index={items.length}
+              moveCard={this.cardPlaceHolder}
+              insertCard={this.insertCard}
+              text="Drag and drop a feature"
+            />
+          </>
+        }
+        {this.props.showInlineEditForm && <SortableDropTarget insertCard={this.insertCard} list={items} setCurrentHoveredCard={this.setCurrentHoveredCard} />}
         <CustomDragLayer showInlineEditForm={this.props.showInlineEditForm}/>
       </div>
     );
