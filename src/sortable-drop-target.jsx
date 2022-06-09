@@ -26,7 +26,8 @@ const cardTarget = {
     const item = monitor.getItem();
     const dragIndex = item.index;
     if (item.onCreate) {
-      props.insertCard(item.onCreate(item.data), dragIndex);
+      props.insertCard(item.onCreate(item.data), dragIndex + 1);
+      props.setCurrentHoveredCard({ id: '' });
     }
   },
 };
