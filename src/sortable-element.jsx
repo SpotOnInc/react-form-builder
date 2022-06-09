@@ -148,22 +148,27 @@ export default function (ComposedComponent) {
         // connectDragSource,
         connectDragPreview,
         connectDropTarget,
+        showInlineEditForm,
         currentHoveredCard,
+        editModeOn,
+        data,
+        id
       } = this.props;
 
-      let customClassName = '';
-
-      if (currentHoveredCard && currentHoveredCard.id === this.props.id) {
-        currentHoveredCard.isTop
-          ? customClassName = 'element-is-above'
-          : customClassName = 'element-is-below';
-      }
-
       const opacity = isDragging ? 0 : 1;
-      const wrapperAction = this.props.showInlineEditForm ? (e) => this.props.editModeOn(this.props.data, e) : null;
+      const wrapperAction = showInlineEditForm ? (e) => editModeOn(data, e) : null;
+
+      const isCurrentCard = currentHoveredCard && currentHoveredCard.id === id;
+      const isAbove = currentHoveredCard && currentHoveredCard.isTop;
+      const isBelow = currentHoveredCard && !currentHoveredCard.isTop;
+
+      const classNamesResult = classNames('wrapper', {
+        'element-is-above': isCurrentCard && isAbove,
+        'element-is-below': isCurrentCard && isBelow,
+      });
 
       return connectDragPreview(
-        connectDropTarget(<div onClick={wrapperAction} className={classNames('wrapper', customClassName)}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
+        connectDropTarget(<div onClick={wrapperAction} className={classNamesResult}><ComposedComponent {...this.props} style={{ ...style, opacity }} /></div>),
       );
     }
   }

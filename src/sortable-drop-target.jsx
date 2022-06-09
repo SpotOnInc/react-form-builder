@@ -4,6 +4,17 @@ import classNames from 'classnames';
 import ItemTypes from './ItemTypes';
 
 class SortableDropTarget extends Component {
+  componentDidUpdate(prevProps) {
+    const { canDrop, isOver } = this.props;
+    const { canDrop: canDropPrev, isOver: isOverPrev } = prevProps;
+    const isActive = canDrop && isOver;
+    const isActivePrev = canDropPrev && isOverPrev;
+
+    if (!isActive && isActivePrev) {
+      this.props.setCurrentHoveredCard({ id: '' });
+    }
+  }
+
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
