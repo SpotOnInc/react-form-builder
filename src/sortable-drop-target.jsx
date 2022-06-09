@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { DropTarget } from 'react-dnd';
+import classNames from 'classnames';
 import ItemTypes from './ItemTypes';
 
 class SortableDropTarget extends Component {
   render() {
     const { canDrop, isOver, connectDropTarget } = this.props;
     const isActive = canDrop && isOver;
-    const style = {
-      border: '1px dashed #47516E',
-    };
-
-    const borderColor = isActive ? '#1769FF' : '#47516E';
 
     return connectDropTarget(
-      <div className='Sortable' style={{ ...style, borderColor }}>
+      <div className={classNames('Sortable', { 'can-drop': isActive })}>
         {!this.props.list.length && <p className='sortable-drop-target__placeholder'>Drag and drop a feature</p>}
         {this.props.list}
-      </div>
+      </div>,
     );
   }
 }
