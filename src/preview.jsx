@@ -333,7 +333,7 @@ export default class Preview extends React.Component {
     return (
       <label htmlFor='title' className='react-form-builder-title'>
         <span>Waiver title</span>
-        <input name='title' onChange={(event) => this.props.setFormTitle(event.target.value)}/>
+        <input value={this.props.formTitle} name='title' onChange={(event) => this.props.setFormTitle(event.target.value)}/>
       </label>
     );
   }
