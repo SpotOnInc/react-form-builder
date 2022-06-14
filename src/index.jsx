@@ -88,6 +88,7 @@ class ReactFormBuilder extends React.Component {
                   onPreviewButton={this.props.onPreviewButton}
                   onPublishButton={this.props.onPublishButton}
                   setFormTitle={this.props.setFormTitle}
+                  formTitle={this.props.formTitle}
                 />
                 <Toolbar {...toolbarProps} customItems={this.props.customToolbarItems} />
               </div>
