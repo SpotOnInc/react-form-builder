@@ -109,6 +109,15 @@ export type FormBuilderPostData = {
   task_data: TaskData[];
 };
 
+export type FormElementEditProps = {
+  showCorrectColumn: boolean;
+  files: any[];
+  manualEditModeOff: () => void;
+  preview: React.ReactNode,
+  element: TaskData,
+  updateElement: (element: TaskData) => void,
+}
+
 export type ToolbarItem = {
   key: string;
   name: string;
@@ -127,7 +136,9 @@ export interface FormBuilderProps {
   onPost?: (data: FormBuilderPostData) => void;
   saveUrl?: string;
   showInlineEditForm?: boolean;
-  renderEditForm?: (data: FormBuilderPostData) => void;
+  renderEditForm?: (data: FormElementEditProps) => void;
+  setFormTitle?: (value: string) => void;
+  formTitle?: string;
   onPreviewButton?: () => void;
   onPublishButton?: () => void;
   backButton?: {
