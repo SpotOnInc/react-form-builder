@@ -299,7 +299,7 @@ class ReactForm extends React.Component {
     const actionName = name || 'Submit';
     const { submitButton = false } = this.props;
 
-    return submitButton || <input type='submit' className='btn btn-big' value={actionName} />;
+    return submitButton || <input type='submit' className='btn btn-big' value={actionName} disabled={this.props.isSubmitDisabled} />;
   }
 
   handleRenderBack = () => {

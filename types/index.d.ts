@@ -109,6 +109,15 @@ export type FormBuilderPostData = {
   task_data: TaskData[];
 };
 
+export type FormElementEditProps = {
+  showCorrectColumn: boolean;
+  files: any[];
+  manualEditModeOff: () => void;
+  preview: React.ReactNode,
+  element: TaskData,
+  updateElement: (element: TaskData) => void,
+}
+
 export type ToolbarItem = {
   key: string;
   name: string;
@@ -127,7 +136,9 @@ export interface FormBuilderProps {
   onPost?: (data: FormBuilderPostData) => void;
   saveUrl?: string;
   showInlineEditForm?: boolean;
-  renderEditForm?: (data: FormBuilderPostData) => void;
+  renderEditForm?: (data: FormElementEditProps) => void;
+  setFormTitle?: (value: string) => void;
+  formTitle?: string;
   onPreviewButton?: () => void;
   onPublishButton?: () => void;
   backButton?: {
@@ -145,8 +156,8 @@ export interface FormGeneratorOnSubmitParams {
 }
 
 export interface FormGeneratorProps {
-  form_action: string;
-  form_method: string;
+  form_action?: string;
+  form_method?: string;
   action_name?: string;
   onSubmit?: (info: FormGeneratorOnSubmitParams[]) => void;
   data: any[];
@@ -159,6 +170,7 @@ export interface FormGeneratorProps {
   skip_validations?: boolean;
   display_short?: boolean;
   read_only?: boolean;
+  isSubmitDisabled?: boolean;
   // eslint-disable-next-line no-undef
   variables?: Record<any, any>;
 }
@@ -169,4 +181,14 @@ export type ActionType = "load" | "updateOrder" | "delete";
 
 export class ElementStore {
   static dispatch: (type: ActionType, data: any) => void;
+
+  static subscribe: (callback: (any) => any) => void;
+}
+
+export class Registry {
+  static register: (name: string, component: React.ReactNode) => void;
+
+  static list: () => string[];
+
+  static get: (name: string) => React.ReactNode;
 }
