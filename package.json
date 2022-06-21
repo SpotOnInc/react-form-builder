@@ -1,6 +1,6 @@
 {
   "name": "@spotoninc/react-form-builder",
-  "version": "0.10.6",
+  "version": "0.10.15",
   "description": "A complete form builder for react.",
   "main": "lib/index.js",
   "types": "types/index.d.ts",
