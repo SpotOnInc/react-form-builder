@@ -370,7 +370,7 @@ class ReactForm extends React.Component {
     const formTokenStyle = {
       display: 'none',
     };
-    console.log('---;', this.handleChange);
+
     return (
       <div>
           <FormValidator emitter={this.emitter} />
