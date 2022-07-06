@@ -28,6 +28,7 @@ class ReactForm extends React.Component {
     this.answerData = this._convert(props.answer_data);
     this.emitter = new EventEmitter();
     this.getDataById = this.getDataById.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   _convert(answers) {
@@ -187,6 +188,13 @@ class ReactForm extends React.Component {
         $input_sig.value = base64;
       }
     }
+  }
+
+  handleChange(data) {
+    const formData = this._collectFormData(this.props.data);
+
+    // eslint-disable-next-line no-unused-expressions
+    this.props.onElementChange?.(formData, data);
   }
 
   handleSubmit(e) {
@@ -362,6 +370,7 @@ class ReactForm extends React.Component {
     const formTokenStyle = {
       display: 'none',
     };
+    console.log('---;', this.handleChange);
     return (
       <div>
           <FormValidator emitter={this.emitter} />
