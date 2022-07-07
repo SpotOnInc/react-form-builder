@@ -11,7 +11,7 @@ class CustomElement extends Component {
 
   render() {
     const { bare } = this.props.data;
-    const props = {};
+    const props = { ...this.props };
     props.name = this.props.data.field_name;
     props.defaultValue = this.props.defaultValue;
 
