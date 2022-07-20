@@ -322,7 +322,7 @@ export default class Preview extends React.Component {
     return (
       <div className='react-form-builder-header'>
         <div className='react-form-builder-header__inner'>
-          {this.props.onPreviewButton && <button className='button button--primary' onClick={this.props.onPreviewButton}>Preview</button>}
+          {this.props.onPreviewButton && <button className='button button--secondary' onClick={this.props.onPreviewButton}>Preview</button>}
           {this.props.onPublishButton && <button className='button button--primary' onClick={this.props.onPublishButton}>Publish</button>}
         </div>
       </div>
