@@ -319,11 +319,12 @@ export default class Preview extends React.Component {
   }
 
   showHeaderButtons() {
+    const isPublishButtonDisabled = !this.state.data.length;
     return (
       <div className='react-form-builder-header'>
         <div className='react-form-builder-header__inner'>
-          {this.props.onPreviewButton && <button className='button button--primary' onClick={this.props.onPreviewButton}>Preview</button>}
-          {this.props.onPublishButton && <button className='button button--primary' onClick={this.props.onPublishButton}>Publish</button>}
+          {this.props.onPreviewButton && <button className='button button--secondary' onClick={this.props.onPreviewButton}>Preview</button>}
+          {this.props.onPublishButton && <button disabled={isPublishButtonDisabled} className='button button--primary' onClick={this.props.onPublishButton}>Publish</button>}
         </div>
       </div>
     );
