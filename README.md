@@ -1,3 +1,7 @@
+# ARCHIVE INFORMATION
+> [!IMPORTANT]
+> Due to lack of usage and maintenance, this repository has been archived.  
+> Please read the [repository archival FAQ](https://docs.corp.spoton.sh/developer/undocumented-repositories-archival-faq/) for more information!
 [![npm version](https://badge.fury.io/js/react-form-builder2.svg)](//npmjs.com/package/react-form-builder2)
 [![downloads](https://img.shields.io/npm/dm/react-form-builder2.svg)](https://img.shields.io/npm/dm/react-form-builder2.svg)
 # React Form Builder 2
